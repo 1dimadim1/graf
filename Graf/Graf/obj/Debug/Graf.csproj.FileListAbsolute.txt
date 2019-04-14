@@ -1,0 +1,13 @@
+C:\Users\Дмитрий\source\repos\Graf\Graf\bin\Debug\Graf.exe.config
+C:\Users\Дмитрий\source\repos\Graf\Graf\bin\Debug\Graf.exe
+C:\Users\Дмитрий\source\repos\Graf\Graf\bin\Debug\Graf.pdb
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.csprojAssemblyReference.cache
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.Form1.resources
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.Properties.Resources.resources
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.csproj.GenerateResource.cache
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.csproj.CoreCompileInputs.cache
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.exe
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.pdb
+C:\Users\Дмитрий\source\repos\Graf\Graf\bin\Debug\LogicGraf.dll
+C:\Users\Дмитрий\source\repos\Graf\Graf\bin\Debug\LogicGraf.pdb
+C:\Users\Дмитрий\source\repos\Graf\Graf\obj\Debug\Graf.csproj.CopyComplete
