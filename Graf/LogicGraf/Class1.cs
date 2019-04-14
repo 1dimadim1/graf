@@ -6,18 +6,20 @@ namespace LogicGraf
 {
     public class Top
     {
-        public Top(int id,char name, int x, int y)
+        public Top(int id,char name, int x, int y, List<int> Connect)
         {
             this.id = id;
             this.name = name;
             this.x = x;
             this.y = y;
+            this.Connect = Connect;
         }
 
         public int id { get; set; }
         public char name { get; set; }
         public int x { get; set; }
         public int y { get; set; }
+        public List<int> Connect { get; set; }
     }
     public class IDGen
     {

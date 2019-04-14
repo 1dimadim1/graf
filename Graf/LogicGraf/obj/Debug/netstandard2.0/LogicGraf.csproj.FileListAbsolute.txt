@@ -7,3 +7,12 @@ C:\Users\Дмитрий\source\repos\Graf\LogicGraf\obj\Debug\netstandard2.0\Log
 C:\Users\Дмитрий\source\repos\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.AssemblyInfo.cs
 C:\Users\Дмитрий\source\repos\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.dll
 C:\Users\Дмитрий\source\repos\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.pdb
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\bin\Debug\netstandard2.0\LogicGraf.deps.json
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\bin\Debug\netstandard2.0\LogicGraf.dll
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\bin\Debug\netstandard2.0\LogicGraf.pdb
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.csprojAssemblyReference.cache
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.csproj.CoreCompileInputs.cache
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.AssemblyInfoInputs.cache
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.AssemblyInfo.cs
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.dll
+C:\Users\Дмитрий\source\repos\graf\Graf\LogicGraf\obj\Debug\netstandard2.0\LogicGraf.pdb

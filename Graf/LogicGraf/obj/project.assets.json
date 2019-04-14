@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Дмитрий\\source\\repos\\graf\\Graf1\\LogicGraf\\LogicGraf.csproj",
+      "projectUniqueName": "C:\\Users\\Дмитрий\\source\\repos\\graf\\Graf\\LogicGraf\\LogicGraf.csproj",
       "projectName": "LogicGraf",
-      "projectPath": "C:\\Users\\Дмитрий\\source\\repos\\graf\\Graf1\\LogicGraf\\LogicGraf.csproj",
+      "projectPath": "C:\\Users\\Дмитрий\\source\\repos\\graf\\Graf\\LogicGraf\\LogicGraf.csproj",
       "packagesPath": "C:\\Users\\Дмитрий\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Дмитрий\\source\\repos\\graf\\Graf1\\LogicGraf\\obj\\",
+      "outputPath": "C:\\Users\\Дмитрий\\source\\repos\\graf\\Graf\\LogicGraf\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
