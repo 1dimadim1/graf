@@ -112,8 +112,17 @@ namespace Graf
                          }
                          );
             V.Connect.Add(id);
-            Edges.Add(new Edge(id,tappedID));
-            DrawLine(tappedID,id);
+            Edge Edge = new Edge(tappedID, id);
+            Edges.Add(Edge);
+            int counter = 0;
+            foreach(var e in Edges)
+            {
+                if ((tappedID == e.id1 && id==e.id2)|| (tappedID == e.id2 && id == e.id1))
+                {
+                    counter++;
+                }                
+            }
+            DrawLine(Edge, counter);
         }
         public void NewTop(int x, int y)
         {
@@ -131,20 +140,20 @@ namespace Graf
             Top a = list.Last();
             gr.DrawString(Convert.ToString(name),new Font("Arial", font), new SolidBrush(Color.Black), x-rad+font/2, y-rad+font/3);
         }
-        public void DrawLine(int FID, int SID)
+        public void DrawLine(Edge Edge,int x)
         {
-            if (SID != FID)
+            if (Edge.id1 != Edge.id2)
             {
                 Top F = list.FindLast(
                          delegate (Top Ver)
                          {
-                             return Ver.id == FID;
+                             return Ver.id == Edge.id1;
                          }
                          );
-            Top S = list.FindLast(
+                Top S = list.FindLast(
                          delegate (Top Ver)
                          {
-                             return Ver.id == SID;
+                             return Ver.id == Edge.id2;
                          }
                          );
             
@@ -154,7 +163,7 @@ namespace Graf
                 double yS = S.y;
                 int distance = Convert.ToInt32(Math.Sqrt(Math.Pow(xF - xS, 2) + Math.Pow(yS - yF, 2)));
                 Graphics gr = pictureBox1.CreateGraphics();
-                gr.DrawLine(new Pen(Brushes.Black), Convert.ToInt32(xF - (((xF - xS) / distance) * rad)), Convert.ToInt32(yF - (((yF - yS) / distance) * rad)), Convert.ToInt32(xS - (((xS - xF) / distance) * rad)), Convert.ToInt32(yS - (((yS - yF) / distance) * rad)));
+                gr.DrawLine(new Pen(Brushes.Black,x*2), Convert.ToInt32(xF - (((xF - xS) / distance) * rad)), Convert.ToInt32(yF - (((yF - yS) / distance) * rad)), Convert.ToInt32(xS - (((xS - xF) / distance) * rad)), Convert.ToInt32(yS - (((yS - yF) / distance) * rad)));
             }
         }
         public void Rewrite()
@@ -163,20 +172,22 @@ namespace Graf
             gr.Clear(Color.Violet);
             foreach (var V in list)
             {
-                DrawTop(V.x, V.y,V.name);
-                if (V.Connect != null)
-                {
-                    foreach(int con in V.Connect)
-                    {
-                        DrawLine(V.id, con);
-                    }
-                }
+                DrawTop(V.x, V.y, V.name);
             }
             int i = 0;
-            foreach(var E in Edges)
+            foreach (var E in Edges)
             {
-                gr.DrawString(Convert.ToString(E.id1+" "+E.id2), new Font("Arial", 10), new SolidBrush(Color.Black), i*25, 400);
+                gr.DrawString(Convert.ToString(E.id1 + " " + E.id2), new Font("Arial", 10), new SolidBrush(Color.Black), i * 25, 400);
                 i++;
+                int counter = 0;
+                foreach (var E1 in Edges)
+                {
+                    if((E.id1 == E1.id1 && E.id2 == E1.id2)|| (E.id2 == E1.id1 && E.id1 == E1.id2))
+                    {
+                        counter++;
+                    }
+                }
+                DrawLine(E, counter);
             }
         }
 
@@ -203,7 +214,10 @@ namespace Graf
             List<Edge> CEdges = new List<Edge>();
             foreach(var E in Edges)
             {
-                CEdges.Add(E);
+                if (E.id1 != E.id2)
+                {
+                    CEdges.Add(E);
+                }                
             }
             if (CEdges.Count != 0)
             {
@@ -226,6 +240,17 @@ namespace Graf
             {
                 MessageBox.Show("Answer is 0");
             }
+            Edges.Clear();
+            foreach(var T in list)
+            {
+                foreach(var Con in T.Connect)
+                {
+                    if (Con > T.id)
+                    {
+                        Edges.Add(new Edge(T.id, Con));
+                    }
+                }
+            }
 
         }
         private void Merge(int id1,int id2, List<Edge> CEdges)
@@ -239,16 +264,16 @@ namespace Graf
                 else if (E.id1==id2)
                 {
                     E.id1 = id1;
-                }                
+                }
             }
-            foreach (var E in CEdges)
+            for (int i = 0; i < CEdges.Count; i++)
             {
-                if(E.id1==id1 && E.id2 == id2)
+                if ((CEdges[i].id1 == id1 && CEdges[i].id2 == id2) || (CEdges[i].id1 == id2 && CEdges[i].id2 == id1))
                 {
-                    CEdges.Remove(E);
-                    break;
-                }                
-            }            
+                    CEdges.RemoveAt(i);
+                    i--;
+                }
+            }
         }
     }
 
