@@ -18,8 +18,8 @@ namespace Graf
         {
             InitializeComponent();            
         }
-
         List<Top> list = new List<Top>();
+        List<Edge> Edges = new List<Edge>();
         int rad = 30;
         bool tapped = false;
         int tappedID = 0;
@@ -96,6 +96,7 @@ namespace Graf
             tappedID = id;
         }
         public void EnotherTap(int id)
+
         {
             Top V=list.FindLast(
                          delegate (Top Ver)
@@ -111,6 +112,7 @@ namespace Graf
                          }
                          );
             V.Connect.Add(id);
+            Edges.Add(new Edge(id,tappedID));
             DrawLine(tappedID,id);
         }
         public void NewTop(int x, int y)
@@ -170,12 +172,106 @@ namespace Graf
                     }
                 }
             }
+            int i = 0;
+            foreach(var E in Edges)
+            {
+                gr.DrawString(Convert.ToString(E.id1+" "+E.id2), new Font("Arial", 10), new SolidBrush(Color.Black), i*25, 400);
+                i++;
+            }
         }
 
         private void ALLClean_Click(object sender, EventArgs e)
         {
-            pictureBox1.BackColor = Color.Wheat;
+            Graphics gr = pictureBox1.CreateGraphics();
+            gr.Clear(Color.Violet);
+            list.Clear();
+            Edges.Clear();
+            tapped = false;
+            tappedID = 0;
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Algoritm();
+            //foreach(var E in Edges)
+            //{
+            //    MessageBox.Show("Связь с вершиной номер " + E.id1 + " установлена c "+E.id2);
+            //}
+        }
+        private void Algoritm()
+        {
+            List<Edge> CEdges = new List<Edge>();
+            foreach(var E in Edges)
+            {
+                CEdges.Add(E);
+            }
+            if (CEdges.Count != 0)
+            {
+                Edge E1 = CEdges.First();//случайный
+
+                while (CEdges.Find((Edge E) => { return (E.id1 != E1.id1 || E.id2 != E1.id2)&&(E.id2 != E1.id1 || E.id1 != E1.id2); }) != null)
+                {                    
+                    Merge(E1.id1, E1.id2, CEdges);
+                    E1 = CEdges.First();//случайный из соседних с E1
+                }
+                Top F = list.FindLast(
+                        delegate (Top Ver)
+                        {
+                            return Ver.id == E1.id2;
+                        }
+                        );
+               ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " рёбер");
+            }
+            else
+            {
+                MessageBox.Show("Answer is 0");
+            }
+
+        }
+        private void Merge(int id1,int id2, List<Edge> CEdges)
+        {
+            foreach(var E in CEdges)
+            {
+                if (E.id1 != id1 && E.id2 == id2)
+                {
+                    E.id2 = id1;
+                }
+                else if (E.id1==id2)
+                {
+                    E.id1 = id1;
+                }                
+            }
+            foreach (var E in CEdges)
+            {
+                if(E.id1==id1 && E.id2 == id2)
+                {
+                    CEdges.Remove(E);
+                    break;
+                }                
+            }            
         }
     }
-    
+
 }
+//foreach(var v in Connections)
+//                {
+//                    MessageBox.Show("Answer is "+v);
+//                }
+//                foreach (var v in V2.Connect)
+//                {
+//                    MessageBox.Show("Edge of v2: " + v);
+//                }
+//Merge
+//var Connections = V1.Connect.Concat(V2.Connect);
+//V1.Connect.Clear();
+//            foreach (var T in Connections)
+//            {
+//              V1.Connect.Add(T);
+//            }
+//            foreach (var T in V1.Connect)
+//            {
+//                if (T == V1.id||T==V2.id)
+//                {
+//                    V1.Connect.Remove(T);
+//                }
+//            }

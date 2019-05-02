@@ -34,6 +34,8 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ALLClean = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ListBox = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +97,7 @@
             this.ALLClean});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(922, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1201, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -106,11 +108,31 @@
             this.ALLClean.Text = "Очистить";
             this.ALLClean.Click += new System.EventHandler(this.ALLClean_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(762, 54);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // ListBox
+            // 
+            this.ListBox.FormattingEnabled = true;
+            this.ListBox.Location = new System.Drawing.Point(854, 94);
+            this.ListBox.Name = "ListBox";
+            this.ListBox.Size = new System.Drawing.Size(335, 420);
+            this.ListBox.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 596);
+            this.ClientSize = new System.Drawing.Size(1201, 596);
+            this.Controls.Add(this.ListBox);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.CreateEdge);
             this.Controls.Add(this.CreateTop);
@@ -136,6 +158,8 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ALLClean;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListBox ListBox;
     }
 }
 

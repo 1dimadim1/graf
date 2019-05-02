@@ -21,6 +21,17 @@ namespace LogicGraf
         public int y { get; set; }
         public List<int> Connect { get; set; }
     }
+    public class Edge
+    {
+        public Edge(int id1, int id2)
+        {
+            this.id1 = id1;
+            this.id2 = id2;
+        }
+
+        public int id1 { get; set; }
+        public int id2 { get; set; }
+    }
     public class IDGen
     {
         char[] letters = "abcdefghijklmnopqrstuvwxyz1234567890".ToCharArray();
@@ -75,10 +86,10 @@ namespace LogicGraf
             return -1;
         }
     }
-    public class Connection
-    {
-        public delegate void Connect();
-        public event Connect tapped;
-        public event Connect tapping;
-    }
+    //public class Connection
+    //{
+    //    public delegate void Connect();
+    //    public event Connect tapped;
+    //    public event Connect tapping;
+    //}
 }
