@@ -210,7 +210,7 @@ namespace Graf
             //}
         }
         private void Algoritm()
-        {
+        {            
             List<Edge> CEdges = new List<Edge>();
             foreach(var E in Edges)
             {
@@ -221,37 +221,83 @@ namespace Graf
             }
             if (CEdges.Count != 0)
             {
-                Edge E1 = CEdges.First();//случайный
-
+                Random rnd = new Random();
+                int Const = 0;// rnd.Next(0, CEdges.Count+1);
+                Edge E1;
+                if (CEdges.Find((Edge E) => { return (E.id1 == Const); }) != null)
+                {
+                    E1 = CEdges.Find((Edge E) => { return (E.id1 == Const); });
+                }
+                else if(CEdges.Find((Edge E) => { return (E.id2 == Const); }) != null)
+                {
+                    E1 = CEdges.Find((Edge E) => { return (E.id2 == Const); });
+                    int change;
+                    change = E1.id1;
+                    E1.id1 = E1.id2;
+                    E1.id2 = change;
+                }
+                else
+                {
+                    E1 = CEdges[0];//неправильно
+                }
                 while (CEdges.Find((Edge E) => { return (E.id1 != E1.id1 || E.id2 != E1.id2)&&(E.id2 != E1.id1 || E.id1 != E1.id2); }) != null)
                 {                    
                     Merge(E1.id1, E1.id2, CEdges);
-                    E1 = CEdges.First();//случайный из соседних с E1
+                    List<Edge> GoodEdges = CEdges.FindAll((Edge E) => { return (E.id1 == Const || E.id2==Const); });
+                    
+                    if (GoodEdges.Count != 0)
+                        E1 = GoodEdges[rnd.Next(0, GoodEdges.Count)];//случайный из соседних с E1
+                    else
+                        E1 = CEdges.First();
                 }
-                Top F = list.FindLast(
+                Top F;
+                if (E1.id1 == Const)
+                {
+                    F = list.FindLast(
                         delegate (Top Ver)
                         {
                             return Ver.id == E1.id2;
                         }
                         );
-               ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " рёбер");
+                }
+                else
+                {
+                    F = list.FindLast(
+                        delegate (Top Ver)
+                        {
+                            return Ver.id == E1.id1;
+                        }
+                        );
+                }
+
+                if (CEdges.Count <= 1)
+                {
+                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " ребро");
+                }
+                else if (CEdges.Count <= 4)
+                {
+                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " ребра");
+                }
+                else
+                {
+                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " рёбрер");
+                }
+                Edges.Clear();
+                foreach (var T in list)
+                {
+                    foreach (var Con in T.Connect)
+                    {
+                        if (Con > T.id)
+                        {
+                            Edges.Add(new Edge(T.id, Con));
+                        }
+                    }
+                }
             }
             else
             {
                 MessageBox.Show("Answer is 0");
-            }
-            Edges.Clear();
-            foreach(var T in list)
-            {
-                foreach(var Con in T.Connect)
-                {
-                    if (Con > T.id)
-                    {
-                        Edges.Add(new Edge(T.id, Con));
-                    }
-                }
-            }
-
+            }            
         }
         private void Merge(int id1,int id2, List<Edge> CEdges)
         {
@@ -278,25 +324,3 @@ namespace Graf
     }
 
 }
-//foreach(var v in Connections)
-//                {
-//                    MessageBox.Show("Answer is "+v);
-//                }
-//                foreach (var v in V2.Connect)
-//                {
-//                    MessageBox.Show("Edge of v2: " + v);
-//                }
-//Merge
-//var Connections = V1.Connect.Concat(V2.Connect);
-//V1.Connect.Clear();
-//            foreach (var T in Connections)
-//            {
-//              V1.Connect.Add(T);
-//            }
-//            foreach (var T in V1.Connect)
-//            {
-//                if (T == V1.id||T==V2.id)
-//                {
-//                    V1.Connect.Remove(T);
-//                }
-//            }
