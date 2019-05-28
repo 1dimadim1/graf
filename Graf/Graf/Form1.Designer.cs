@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CreateTop = new System.Windows.Forms.RadioButton();
             this.CreateEdge = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.Move = new System.Windows.Forms.RadioButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ALLClean = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
@@ -79,17 +80,17 @@
             this.CreateEdge.Text = "Рёбра";
             this.CreateEdge.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // Move
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(516, 35);
-            this.radioButton3.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(85, 17);
-            this.radioButton3.TabIndex = 3;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.Move.AutoSize = true;
+            this.Move.Location = new System.Drawing.Point(516, 35);
+            this.Move.Margin = new System.Windows.Forms.Padding(2);
+            this.Move.Name = "Move";
+            this.Move.Size = new System.Drawing.Size(98, 17);
+            this.Move.TabIndex = 3;
+            this.Move.TabStop = true;
+            this.Move.Text = "Перемещение";
+            this.Move.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -133,15 +134,16 @@
             this.ClientSize = new System.Drawing.Size(1201, 596);
             this.Controls.Add(this.ListBox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.radioButton3);
+            this.Controls.Add(this.Move);
             this.Controls.Add(this.CreateEdge);
             this.Controls.Add(this.CreateTop);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Graf AlgKarger";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -155,7 +157,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.RadioButton CreateTop;
         private System.Windows.Forms.RadioButton CreateEdge;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton Move;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ALLClean;
         private System.Windows.Forms.Button button1;

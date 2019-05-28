@@ -28,7 +28,7 @@ namespace Graf
 
         private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
         {            
-            if(!Checker.FreePlaceCreate(rad, e.Location.X, e.Location.Y, list))
+            if(!Checker.FreePlaceCreate(rad, e.Location.X, e.Location.Y, list)&& Move.Checked == true)
             {
                 HoverID = Checker.WhatTop(rad, e.Location.X, e.Location.Y, list);
                 Hover = true;
@@ -82,12 +82,14 @@ namespace Graf
                     {
                         EnotherTap(Checker.WhatTop(rad, coordinates.X, coordinates.Y, list));
                         tapped = false;
+                        Rewrite();
                         //MessageBox.Show("Связь с вершиной номер " + tappedID + " установлена");
                     }
                 }                
             }
             else
             {
+
             }
         }
 
@@ -204,10 +206,6 @@ namespace Graf
         private void Button1_Click(object sender, EventArgs e)
         {
             Algoritm();
-            //foreach(var E in Edges)
-            //{
-            //    MessageBox.Show("Связь с вершиной номер " + E.id1 + " установлена c "+E.id2);
-            //}
         }
         private void Algoritm()
         {            
@@ -222,34 +220,36 @@ namespace Graf
             if (CEdges.Count != 0)
             {
                 Random rnd = new Random();
-                int Const = 0;// rnd.Next(0, CEdges.Count+1);
+                int Const = rnd.Next(0, CEdges.Count);
                 Edge E1;
-                if (CEdges.Find((Edge E) => { return (E.id1 == Const); }) != null)
+
+                if (CEdges.Find((Edge E) => { return (E.id1 == Const); }) != null)//берём вершину
                 {
                     E1 = CEdges.Find((Edge E) => { return (E.id1 == Const); });
-                }
+                }//берём выбранную вершину
                 else if(CEdges.Find((Edge E) => { return (E.id2 == Const); }) != null)
                 {
                     E1 = CEdges.Find((Edge E) => { return (E.id2 == Const); });
-                    int change;
-                    change = E1.id1;
-                    E1.id1 = E1.id2;
-                    E1.id2 = change;
+                    E1.id2 = E1.id1;
+                    E1.id1 = Const;
                 }
                 else
                 {
-                    E1 = CEdges[0];//неправильно
-                }
-                while (CEdges.Find((Edge E) => { return (E.id1 != E1.id1 || E.id2 != E1.id2)&&(E.id2 != E1.id1 || E.id1 != E1.id2); }) != null)
+                    ListBox.Items.Insert(0, "Найден минимальный разрез это 0 рёбрер");
+                    return;
+                }//вершина без рёбер
+
+                while (CEdges.Find((Edge E) => { return (E.id1 != E1.id1 || E.id2 != E1.id2)&&(E.id2 != E1.id1 || E.id1 != E1.id2); }) != null)//пока есть ещё рёбра
                 {                    
-                    Merge(E1.id1, E1.id2, CEdges);
-                    List<Edge> GoodEdges = CEdges.FindAll((Edge E) => { return (E.id1 == Const || E.id2==Const); });
+                    Merge(E1.id1, E1.id2, CEdges);//объединяем вершины
+                    List<Edge> GoodEdges = CEdges.FindAll((Edge E) => { return (E.id1 == Const || E.id2==Const); });//берём соседние вершины
                     
                     if (GoodEdges.Count != 0)
-                        E1 = GoodEdges[rnd.Next(0, GoodEdges.Count)];//случайный из соседних с E1
+                        E1 = GoodEdges[rnd.Next(0, GoodEdges.Count)];//случайный из соседних с E
                     else
                         E1 = CEdges.First();
                 }
+
                 Top F;
                 if (E1.id1 == Const)
                 {
@@ -272,16 +272,17 @@ namespace Graf
 
                 if (CEdges.Count <= 1)
                 {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " ребро");
-                }
+                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром ' " + F.name + " ' это " + CEdges.Count + " ребро");
+                }//вывод результата
                 else if (CEdges.Count <= 4)
                 {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " ребра");
+                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром ' " + F.name + " ' это " + CEdges.Count + " ребра");
                 }
                 else
                 {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром " + F.name + " это " + CEdges.Count + " рёбрер");
+                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром ' " + F.name + " ' это " + CEdges.Count + " рёбрер");
                 }
+
                 Edges.Clear();
                 foreach (var T in list)
                 {
@@ -292,11 +293,11 @@ namespace Graf
                             Edges.Add(new Edge(T.id, Con));
                         }
                     }
-                }
+                }//восстонавливаем Edges list
             }
             else
             {
-                MessageBox.Show("Answer is 0");
+                ListBox.Items.Insert(0, "Найден минимальный разрез это 01 рёбрер");
             }            
         }
         private void Merge(int id1,int id2, List<Edge> CEdges)
