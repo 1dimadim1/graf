@@ -20,7 +20,8 @@ namespace Graf
         }
         List<Top> list = new List<Top>();
         List<Edge> Edges = new List<Edge>();
-        int rad = 30;
+
+        int rad = 20;
         bool tapped = false;
         int tappedID = 0;
         bool Hover = false;
@@ -179,7 +180,7 @@ namespace Graf
             int i = 0;
             foreach (var E in Edges)
             {
-                gr.DrawString(Convert.ToString(E.id1 + " " + E.id2), new Font("Arial", 10), new SolidBrush(Color.Black), i * 25, 400);
+                gr.DrawString(Convert.ToString(E.id1 + " " + E.id2), new Font("Arial", 10), new SolidBrush(Color.Black), i * 25, 450);
                 i++;
                 int counter = 0;
                 foreach (var E1 in Edges)
@@ -220,67 +221,33 @@ namespace Graf
             if (CEdges.Count != 0)
             {
                 Random rnd = new Random();
-                int Const = rnd.Next(0, CEdges.Count);
                 Edge E1;
 
-                if (CEdges.Find((Edge E) => { return (E.id1 == Const); }) != null)//берём вершину
+                for(int i=0;i< list.Count-2;i++)//цикл n-2
                 {
-                    E1 = CEdges.Find((Edge E) => { return (E.id1 == Const); });
-                }//берём выбранную вершину
-                else if(CEdges.Find((Edge E) => { return (E.id2 == Const); }) != null)
-                {
-                    E1 = CEdges.Find((Edge E) => { return (E.id2 == Const); });
-                    E1.id2 = E1.id1;
-                    E1.id1 = Const;
-                }
-                else
-                {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез это 0 рёбрер");
-                    return;
-                }//вершина без рёбер
-
-                while (CEdges.Find((Edge E) => { return (E.id1 != E1.id1 || E.id2 != E1.id2)&&(E.id2 != E1.id1 || E.id1 != E1.id2); }) != null)//пока есть ещё рёбра
-                {                    
+                    while (true)
+                    {
+                        int Const = rnd.Next(0, list.Count);
+                        if (CEdges.Count > Const)
+                        {
+                            E1 = CEdges[Const];
+                            break;
+                        }
+                    } //берём случайную вершину
                     Merge(E1.id1, E1.id2, CEdges);//объединяем вершины
-                    List<Edge> GoodEdges = CEdges.FindAll((Edge E) => { return (E.id1 == Const || E.id2==Const); });//берём соседние вершины
-                    
-                    if (GoodEdges.Count != 0)
-                        E1 = GoodEdges[rnd.Next(0, GoodEdges.Count)];//случайный из соседних с E
-                    else
-                        E1 = CEdges.First();
-                }
-
-                Top F;
-                if (E1.id1 == Const)
-                {
-                    F = list.FindLast(
-                        delegate (Top Ver)
-                        {
-                            return Ver.id == E1.id2;
-                        }
-                        );
-                }
-                else
-                {
-                    F = list.FindLast(
-                        delegate (Top Ver)
-                        {
-                            return Ver.id == E1.id1;
-                        }
-                        );
                 }
 
                 if (CEdges.Count <= 1)
                 {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром ' " + F.name + " ' это " + CEdges.Count + " ребро");
+                    ListBox.Items.Insert(0, "Найден минимальный разрез это " + CEdges.Count + " ребро");
                 }//вывод результата
                 else if (CEdges.Count <= 4)
                 {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром ' " + F.name + " ' это " + CEdges.Count + " ребра");
+                    ListBox.Items.Insert(0, "Найден минимальный разрез это " + CEdges.Count + " ребра");
                 }
                 else
                 {
-                    ListBox.Items.Insert(0, "Найден минимальный разрез с ребром ' " + F.name + " ' это " + CEdges.Count + " рёбрер");
+                    ListBox.Items.Insert(0, "Найден минимальный разрез это " + CEdges.Count + " рёбрер");
                 }
 
                 Edges.Clear();
@@ -297,7 +264,7 @@ namespace Graf
             }
             else
             {
-                ListBox.Items.Insert(0, "Найден минимальный разрез это 01 рёбрер");
+                ListBox.Items.Insert(0, "Найден минимальный разрез это 0 рёбрер");
             }            
         }
         private void Merge(int id1,int id2, List<Edge> CEdges)
@@ -315,7 +282,7 @@ namespace Graf
             }
             for (int i = 0; i < CEdges.Count; i++)
             {
-                if ((CEdges[i].id1 == id1 && CEdges[i].id2 == id2) || (CEdges[i].id1 == id2 && CEdges[i].id2 == id1))
+                if ((CEdges[i].id1 == id1 && CEdges[i].id2 == id2) || (CEdges[i].id1 == id2 && CEdges[i].id2 == id1) || (CEdges[i].id1 == CEdges[i].id2))
                 {
                     CEdges.RemoveAt(i);
                     i--;
@@ -323,5 +290,60 @@ namespace Graf
             }
         }
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Top F;
+//                if (E1.id1 == Const)
+//                {
+//                    F = list.FindLast(
+//                        delegate (Top Ver)
+//                        {
+//                            return Ver.id == E1.id2;
+//                        }
+//                        );
+//                }
+//                else
+//                {
+//                    F = list.FindLast(
+//                        delegate (Top Ver)
+//                        {
+//                            return Ver.id == E1.id1;
+//                        }
+//                        );
+//                }
